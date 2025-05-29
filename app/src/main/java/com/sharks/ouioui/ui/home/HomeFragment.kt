@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.sharks.ouioui.R
+import androidx.navigation.fragment.findNavController
 import com.sharks.ouioui.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -20,9 +21,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.buttonTryMe.setOnClickListener {
-            Toast.makeText(requireContext(), "HomeFragment works!", Toast.LENGTH_SHORT).show()
+        binding.searchButtonCard.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
     }
 

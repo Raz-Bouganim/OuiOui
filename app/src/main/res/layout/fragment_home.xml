@@ -2,32 +2,165 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/home_fragment"
-    android:padding="24dp">
+    android:background="@color/background_light"
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewTitle"
+        android:id="@+id/ouiOuiTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to OuiOui 🌍"
-        android:textSize="24sp"
+        android:text="OuiOui"
+        android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/text_primary_light"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonTryMe"
+    <TextView
+        android:id="@+id/textViewSecondaryHomeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Try Me!"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        android:text="Explore beautiful destinations 🌍"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_secondary_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ouiOuiTitle" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchButtonCard"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:strokeWidth="0dp"
+        app:strokeColor="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/searchButtonIcon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_search"
+            android:contentDescription="Search"/>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <!-- Featured Destination -->
+    <TextView
+        android:id="@+id/textViewFeaturedDestinationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Featured Destination"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary_light"
+        app:layout_constraintTop_toBottomOf="@id/textViewSecondaryHomeTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewFeaturedDestination"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:clipToPadding="false"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewFeaturedDestinationTitle"/>
 
+    <!-- Discover Destinations -->
+    <TextView
+        android:id="@+id/textViewDiscoverDestinationsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discover"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary_light"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewFeaturedDestination"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp" />
+    
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollViewDiscoverDestinations"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDiscoverDestinationsTitle">
 
+        <LinearLayout
+            android:id="@+id/linearLayoutDiscoverDestinationsInner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/OuiOui.Button.Outlined"
+                android:id="@+id/buttonDiscoverDestinations"
+                android:text="All"
+                android:layout_marginEnd="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/OuiOui.Button.Outlined"
+                android:id="@+id/buttonDiscoverDestinationsTopRated"
+                android:text="Top Rated"
+                android:layout_marginEnd="8dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/OuiOui.Button.Outlined"
+                android:id="@+id/buttonDiscoverDestinationsBeaches"
+                android:text="Beaches"
+                android:layout_marginEnd="8dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/OuiOui.Button.Outlined"
+                android:id="@+id/buttonDiscoverDestinationsCities"
+                android:text="Cities"
+                android:layout_marginEnd="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/OuiOui.Button.Outlined"
+                android:id="@+id/buttonDiscoverDestinationsMountains"
+                android:text="Mountains"
+                android:layout_marginEnd="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/OuiOui.Button.Outlined"
+                android:id="@+id/buttonDiscoverDestinationsHistorical"
+                android:text="Historical"
+                android:layout_marginEnd="8dp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDiscoverDestinations"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewDiscoverDestinations"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
