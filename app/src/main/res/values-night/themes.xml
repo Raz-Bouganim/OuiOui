@@ -1,7 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- Base M3 DayNight theme without ActionBar (dark overrides) -->
     <style name="Base.Theme.OuiOui" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorPrimaryContainer">@color/primary_variant</item>
+        <item name="colorOnPrimaryContainer">@android:color/white</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+        <item name="colorSecondaryContainer">@color/secondary_variant</item>
+        <item name="colorOnSecondaryContainer">@android:color/white</item>
+
+        <!-- Background & surface -->
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="colorOnBackground">@color/text_primary_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnSurface">@color/text_primary_dark</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/background_dark</item>
     </style>
+
+    <!-- Your app theme (inherits dark overrides) -->
+    <style name="Theme.OuiOui" parent="Base.Theme.OuiOui" />
+
+    <!-- Elevated cards (dark) -->
+    <style name="OuiOui.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/card_background_dark</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <!-- Outlined button (dark) -->
+    <style name="OuiOui.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">@color/primary</item>
+        <item name="strokeColor">@color/primary</item>
+        <item name="shapeAppearance">@style/Shape.Corner.Rounded8</item>
+    </style>
+
+    <!-- Rounded‐corner shape (shared) -->
+    <style name="Shape.Corner.Rounded8" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <!-- Text appearances (dark) -->
+    <style name="OuiOui.Text.Title" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">@color/text_primary_dark</item>
+    </style>
+    <style name="OuiOui.Text.Subtitle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/text_secondary_dark</item>
+    </style>
+    <style name="OuiOui.Text.Body" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">@color/text_primary_dark</item>
+    </style>
+
 </resources>
