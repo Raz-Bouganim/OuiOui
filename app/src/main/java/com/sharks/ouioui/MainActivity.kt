@@ -28,17 +28,23 @@ class MainActivity : AppCompatActivity() {
 
         binding.navHome.setOnClickListener {
             navController.navigate(R.id.homeFragment)
-            highlightSelected(binding.navHome)
         }
 
         binding.navSearch.setOnClickListener {
             navController.navigate(R.id.searchFragment)
-            highlightSelected(binding.navSearch)
         }
 
         binding.navSettings.setOnClickListener {
             navController.navigate(R.id.settingsFragment)
-            highlightSelected(binding.navSettings)
+        }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.homeFragment -> highlightSelected(binding.navHome)
+                R.id.searchFragment -> highlightSelected(binding.navSearch)
+                R.id.savedFragment -> highlightSelected(binding.navSaved)
+                R.id.settingsFragment -> highlightSelected(binding.navSettings)
+            }
         }
     }
 
