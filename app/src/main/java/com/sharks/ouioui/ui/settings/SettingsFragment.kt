@@ -14,7 +14,7 @@ import com.sharks.ouioui.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
-    private val b get() = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +27,9 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Dark mode toggle
-        b.switchDark.isChecked =
+        binding.switchDark.isChecked =
             AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
-        b.switchDark.setOnCheckedChangeListener { _, checked ->
+        binding.switchDark.setOnCheckedChangeListener { _, checked ->
             AppCompatDelegate.setDefaultNightMode(
                 if (checked) AppCompatDelegate.MODE_NIGHT_YES
                 else AppCompatDelegate.MODE_NIGHT_NO
@@ -37,10 +37,10 @@ class SettingsFragment : Fragment() {
         }
 
         // Email placeholder
-        b.tvEmail.text = "user@example.com"
+        binding.tvEmail.text = "user@example.com"
 
         // Logout button
-        b.btnLogout.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             // TODO: implement logout
             android.widget.Toast
                 .makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT)
@@ -48,7 +48,7 @@ class SettingsFragment : Fragment() {
         }
 
         // About dialog
-        b.rowAbout.setOnClickListener {
+        binding.rowAbout.setOnClickListener {
             AlertDialog.Builder(requireContext())
                 .setTitle("About OuiOui")
                 .setMessage("OuiOui v1.0\n© 2025 Your Company")
@@ -57,7 +57,7 @@ class SettingsFragment : Fragment() {
         }
 
         // Rate this app
-        b.rowRate.setOnClickListener {
+        binding.rowRate.setOnClickListener {
             startActivity(Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("market://details?id=${requireContext().packageName}")
@@ -65,12 +65,12 @@ class SettingsFragment : Fragment() {
         }
 
         // Language selector
-        b.rowLanguage.setOnClickListener {
+        binding.rowLanguage.setOnClickListener {
             val langs = arrayOf("English", "עברית")
             AlertDialog.Builder(requireContext())
                 .setTitle("Select Language")
                 .setItems(langs) { dlg, idx ->
-                    b.tvLanguage.text = langs[idx]
+                    binding.tvLanguage.text = langs[idx]
                     dlg.dismiss()
                 }
                 .show()

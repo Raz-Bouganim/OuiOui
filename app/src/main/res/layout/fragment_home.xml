@@ -95,7 +95,7 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollViewDiscoverDestinations"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:fillViewport="true"
         android:scrollbars="none"
         android:layout_marginTop="8dp"

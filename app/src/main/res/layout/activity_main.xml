@@ -16,4 +16,107 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
+    <LinearLayout
+        android:id="@+id/customBottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_bottom_nav"
+        android:padding="12dp"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:layout_margin="24dp"
+        android:clipToPadding="false"
+        android:layout_alignParentBottom="true">
+
+        <!-- Home -->
+        <LinearLayout
+            android:id="@+id/nav_home"
+            style="@style/CustomNavItem"
+            android:tag="homeFragment">
+
+            <ImageView
+                android:id="@+id/nav_home_icon"
+                android:src="@drawable/ic_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/nav_icon_color"/>
+
+            <TextView
+                android:id="@+id/nav_home_text"
+                android:text="Home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nav_text_color"/>
+
+        </LinearLayout>
+
+        <!-- Search -->
+        <LinearLayout
+            android:id="@+id/nav_search"
+            style="@style/CustomNavItem"
+            android:tag="searchFragment">
+
+            <ImageView
+                android:id="@+id/nav_search_icon"
+                android:src="@drawable/ic_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/nav_icon_color"/>
+
+            <TextView
+                android:id="@+id/nav_search_text"
+                android:text="Search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nav_text_color"/>
+        </LinearLayout>
+
+        <!-- Saved -->
+        <LinearLayout
+            android:id="@+id/nav_saved"
+            style="@style/CustomNavItem"
+            android:tag="savedFragment">
+            <ImageView
+                android:id="@+id/nav_saved_icon"
+                android:src="@drawable/ic_bookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/nav_icon_color"/>
+
+            <TextView
+                android:id="@+id/nav_saved_text"
+                android:text="Saved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nav_text_color"/>
+        </LinearLayout>
+
+        <!-- Settings -->
+        <LinearLayout
+            android:id="@+id/nav_settings"
+            style="@style/CustomNavItem"
+            android:tag="settingsFragment">
+            <ImageView
+                android:id="@+id/nav_settings_icon"
+                android:src="@drawable/ic_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/nav_icon_color"/>
+
+            <TextView
+                android:id="@+id/nav_settings_text"
+                android:text="Settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nav_text_color"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
