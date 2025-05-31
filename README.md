@@ -61,7 +61,7 @@ com.ouioui.app
 |-----------------|-----------------------------------|------------------|
 | *Raz Bouganim* | 🌐 API Integration & Home Fragment | <ul><li>Setup Retrofit & remote data layer</li><li>Define API endpoints & models</li><li>Implement Home Fragment (popular destinations)</li><li>Handle remote Repository logic (network calls)</li><li>Loading/error states for remote data</li></ul> |
 | *Ohad Cohen*   | 💾 Local DB & Saved Fragment        | <ul><li>Configure Room DB (entities, DAOs)</li><li>Implement Saved Fragment (add/remove saved places)</li></ul> |
-| *Noam Mellul*  | 🎨 UI/UX, Category & Settings       | <ul><li>Implement Category Fragment</li><li>Build Settings Fragment (dark mode)</li><li>Style the app: themes, fonts, spacing</li><li>Set up Navigation (NavHostFragment + graph)</li><li>Integrate Glide for image loading</li></ul> |
+| *Noam Mellul*  | 🎨 UI/UX, Search & Settings       | <ul><li>Implement Search Fragment</li><li>Build Settings Fragment (dark mode)</li><li>Style the app: themes, fonts, spacing</li><li>Set up Navigation (NavHostFragment + graph)</li><li>Integrate Glide for image loading</li></ul> |
 
 ---
 
