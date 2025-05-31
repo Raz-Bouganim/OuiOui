@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.searchFragment)
         }
 
+        binding.navSaved.setOnClickListener {
+            navController.navigate(R.id.savedFragment)
+        }
+
         binding.navSettings.setOnClickListener {
             navController.navigate(R.id.settingsFragment)
         }
