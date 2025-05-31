@@ -1,8 +1,6 @@
 package com.sharks.ouioui.ui.search
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,18 +16,9 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = FragmentSearchBinding.inflate(inflater, container, false)
-        .also { _binding = it }.root
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.textEcho.text = s?.takeIf { it.isNotBlank() }
-                    ?: "Start typing above..."
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
+    ): View {
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onDestroyView() {
