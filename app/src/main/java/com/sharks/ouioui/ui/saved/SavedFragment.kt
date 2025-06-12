@@ -1,4 +1,3 @@
-// app/src/main/java/com/sharks/ouioui/ui/saved/SavedFragment.kt
 package com.sharks.ouioui.ui.saved
 
 import android.os.Bundle
