@@ -3,12 +3,11 @@ package com.sharks.ouioui.repository
 import android.util.Log
 import com.sharks.ouioui.data.model.Destination
 import com.sharks.ouioui.data.remote.RetrofitInstance
+import com.sharks.ouioui.utils.Constants.Companion.API_KEY
 
 class DestinationRepo() {
     suspend fun getPopularDestinations(query: String): List<Destination> {
-        val apiKey = "1ddc64c217040535b769e34b27849877e555e88d7ca0bb42180dc7f39f133fd8"
-        val response = RetrofitInstance.api.getPopularDestinations(query = query, apiKey = apiKey)
-        Log.d("DestinationRepo", "Raw API response: $response")
+        val response = RetrofitInstance.api.getPopularDestinations(query = query, apiKey = API_KEY)
         return response.popular_destinations?.destinations?.map {
             Destination(
                 title = it.title ?: "No title",

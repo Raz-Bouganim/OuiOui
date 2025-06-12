@@ -59,10 +59,23 @@
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:hint="Type to search..."
+            android:hint="Type a country to search for..."
             android:background="@android:color/transparent"
             android:textColor="@color/text_primary_light"
             android:inputType="text"
             android:imeOptions="actionSearch"/>
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSearchedDestination"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchBar"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,18 +13,43 @@ class HomeViewModel : ViewModel() {
 
     private val repository = DestinationRepo()
 
-    private val _destinations = MutableLiveData<List<Destination>>()
-    val destinations: LiveData<List<Destination>> = _destinations
+    private val _worldDestinations = MutableLiveData<List<Destination>>()
+    val worldDestinations: LiveData<List<Destination>> = _worldDestinations
+    private val countryList = listOf(
+        "France", "Italy", "Spain", "Germany", "United Kingdom", "United States",
+        "Canada", "Australia", "Israel", "Japan", "Greece", "Portugal", "China",
+        "India", "Brazil", "Mexico", "South Africa", "Turkey", "Russia", "Netherlands"
+    )
+
+    private val _franceDestinations = MutableLiveData<List<Destination>>()
+    val franceDestinations: LiveData<List<Destination>> = _franceDestinations
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    fun fetchDestinations(query: String) {
+    fun fetchWorldDestinations() {
         viewModelScope.launch {
             try {
-                val result = repository.getPopularDestinations(query)
-                Log.d("HomeViewModel", "Fetched destinations: $result")
-                _destinations.value = result
+                val randomCountry = countryList.shuffled().take(10)
+                val allDestinations = mutableListOf<Destination>()
+                for (country in randomCountry) {
+                    val result = repository.getPopularDestinations(country)
+                    if (result.isNotEmpty()){
+                        allDestinations.addAll(result)
+                    }
+                }
+                _worldDestinations.value = allDestinations.shuffled()
+            } catch (e: Exception) {
+                _error.value = "Error: ${e.message}"
+            }
+        }
+    }
+
+    fun fetchFranceDestinations() {
+        viewModelScope.launch {
+            try {
+                val result = repository.getPopularDestinations("France")
+                _franceDestinations.value = result
             } catch (e: Exception) {
                 _error.value = "Error: ${e.message}"
             }

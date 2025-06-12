@@ -1,4 +1,4 @@
-package com.sharks.ouioui.ui.home
+package com.sharks.ouioui.utils
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
