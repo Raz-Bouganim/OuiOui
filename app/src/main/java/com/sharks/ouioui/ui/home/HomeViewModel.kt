@@ -16,20 +16,28 @@ class HomeViewModel @Inject constructor(private val repository: DestinationRepo)
 
     private val _worldDestinations = MutableLiveData<List<Destination>>()
     val worldDestinations: LiveData<List<Destination>> = _worldDestinations
+
+    private val _franceDestinations = MutableLiveData<List<Destination>>()
+    val franceDestinations: LiveData<List<Destination>> = _franceDestinations
+
+    private val _loadingWorld = MutableLiveData<Boolean>()
+    val loadingWorld: LiveData<Boolean> = _loadingWorld
+
+    private val _loadingFrance = MutableLiveData<Boolean>()
+    val loadingFrance: LiveData<Boolean> = _loadingFrance
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+
     private val countryList = listOf(
         "France", "Italy", "Spain", "Germany", "United Kingdom", "United States",
         "Canada", "Australia", "Israel", "Japan", "Greece", "Portugal", "China",
         "India", "Brazil", "Mexico", "South Africa", "Turkey", "Russia", "Netherlands"
     )
 
-    private val _franceDestinations = MutableLiveData<List<Destination>>()
-    val franceDestinations: LiveData<List<Destination>> = _franceDestinations
-
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
-
     fun fetchWorldDestinations() {
         if (_worldDestinations.value.isNullOrEmpty()) {
+            _loadingWorld.value = true
             viewModelScope.launch {
                 try {
                     val randomCountry = countryList.shuffled().take(10)
@@ -44,18 +52,25 @@ class HomeViewModel @Inject constructor(private val repository: DestinationRepo)
                 } catch (e: Exception) {
                     _error.value = "Error: ${e.message}"
                 }
+                finally {
+                    _loadingWorld.value = false
+                }
             }
         }
     }
 
     fun fetchFranceDestinations() {
         if (_franceDestinations.value.isNullOrEmpty()) {
+            _loadingFrance.value = true
             viewModelScope.launch {
                 try {
-                    val result = repository.getPopularDestinations("France")
+                    val result = repository.getPopularDestinations("france")
                     _franceDestinations.value = result.shuffled()
                 } catch (e: Exception) {
                     _error.value = "Error: ${e.message}"
+                }
+                finally {
+                    _loadingFrance.value = false
                 }
             }
         }

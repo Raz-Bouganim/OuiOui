@@ -63,6 +63,16 @@ class HomeFragment : Fragment() {
         binding.recyclerViewDiscoverDestinations.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewDiscoverDestinations.adapter = discoverAdapter
 
+        homeViewModel.loadingWorld.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBarDiscover.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.recyclerViewDiscoverDestinations.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
+        }
+
+        homeViewModel.loadingFrance.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBarFeatured.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.recyclerViewFeaturedDestination.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
+        }
+
         homeViewModel.franceDestinations.observe(viewLifecycleOwner) { destinations ->
             val shuffled = destinations
             featuredAdapter.updateData(shuffled)

@@ -70,17 +70,31 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewFeaturedDestination"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    <FrameLayout
+        android:id="@+id/featuredContainer"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFeaturedDestinationTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewFeaturedDestinationTitle">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFeaturedDestination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <ProgressBar
+            android:id="@+id/progressBarFeatured"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible"/>
+    </FrameLayout>
 
     <!-- Discover Destinations -->
     <TextView
@@ -91,78 +105,34 @@
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/text_primary_light"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewFeaturedDestination"
+        app:layout_constraintTop_toBottomOf="@id/featuredContainer"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp" />
-    
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollViewDiscoverDestinations"
+        android:layout_marginTop="16dp"/>
+
+    <FrameLayout
+        android:id="@+id/discoverContainer"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        android:layout_marginTop="8dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDiscoverDestinationsTitle">
+        app:layout_constraintTop_toBottomOf="@+id/textViewDiscoverDestinationsTitle"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayoutDiscoverDestinationsInner"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDiscoverDestinations"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp">
+            android:clipToPadding="false"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="invisible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/OuiOui.Button.Outlined"
-                android:id="@+id/buttonDiscoverDestinations"
-                android:text="All"
-                android:layout_marginEnd="8dp" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/OuiOui.Button.Outlined"
-                android:id="@+id/buttonDiscoverDestinationsTopRated"
-                android:text="Top Rated"
-                android:layout_marginEnd="8dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/OuiOui.Button.Outlined"
-                android:id="@+id/buttonDiscoverDestinationsBeaches"
-                android:text="Beaches"
-                android:layout_marginEnd="8dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/OuiOui.Button.Outlined"
-                android:id="@+id/buttonDiscoverDestinationsCities"
-                android:text="Cities"
-                android:layout_marginEnd="8dp" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/OuiOui.Button.Outlined"
-                android:id="@+id/buttonDiscoverDestinationsMountains"
-                android:text="Mountains"
-                android:layout_marginEnd="8dp" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/OuiOui.Button.Outlined"
-                android:id="@+id/buttonDiscoverDestinationsHistorical"
-                android:text="Historical"
-                android:layout_marginEnd="8dp" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDiscoverDestinations"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewDiscoverDestinations"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <ProgressBar
+            android:id="@+id/progressBarDiscover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible"/>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
