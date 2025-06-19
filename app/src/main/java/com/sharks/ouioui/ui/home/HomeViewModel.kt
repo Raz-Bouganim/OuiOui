@@ -7,11 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sharks.ouioui.data.model.Destination
 import com.sharks.ouioui.repository.DestinationRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
-
-    private val repository = DestinationRepo()
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val repository: DestinationRepo) : ViewModel() {
 
     private val _worldDestinations = MutableLiveData<List<Destination>>()
     val worldDestinations: LiveData<List<Destination>> = _worldDestinations

@@ -6,11 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sharks.ouioui.data.model.Destination
 import com.sharks.ouioui.repository.DestinationRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel : ViewModel() {
-
-    private val repository = DestinationRepo()
+@HiltViewModel
+class SearchViewModel @Inject constructor(private val repository: DestinationRepo): ViewModel() {
 
     private val _destinations = MutableLiveData<List<Destination>>()
     val destinations: LiveData<List<Destination>> = _destinations

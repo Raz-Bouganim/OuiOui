@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sharks.ouioui.databinding.FragmentSavedBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SavedFragment : Fragment() {
 
     private var _binding: FragmentSavedBinding? = null
