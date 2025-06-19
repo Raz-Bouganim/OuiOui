@@ -29,30 +29,34 @@ class HomeViewModel @Inject constructor(private val repository: DestinationRepo)
     val error: LiveData<String> = _error
 
     fun fetchWorldDestinations() {
-        viewModelScope.launch {
-            try {
-                val randomCountry = countryList.shuffled().take(10)
-                val allDestinations = mutableListOf<Destination>()
-                for (country in randomCountry) {
-                    val result = repository.getPopularDestinations(country)
-                    if (result.isNotEmpty()){
-                        allDestinations.addAll(result)
+        if (_worldDestinations.value.isNullOrEmpty()) {
+            viewModelScope.launch {
+                try {
+                    val randomCountry = countryList.shuffled().take(10)
+                    val allDestinations = mutableListOf<Destination>()
+                    for (country in randomCountry) {
+                        val result = repository.getPopularDestinations(country)
+                        if (result.isNotEmpty()) {
+                            allDestinations.addAll(result)
+                        }
                     }
+                    _worldDestinations.value = allDestinations.shuffled()
+                } catch (e: Exception) {
+                    _error.value = "Error: ${e.message}"
                 }
-                _worldDestinations.value = allDestinations.shuffled()
-            } catch (e: Exception) {
-                _error.value = "Error: ${e.message}"
             }
         }
     }
 
     fun fetchFranceDestinations() {
-        viewModelScope.launch {
-            try {
-                val result = repository.getPopularDestinations("France")
-                _franceDestinations.value = result
-            } catch (e: Exception) {
-                _error.value = "Error: ${e.message}"
+        if (_franceDestinations.value.isNullOrEmpty()) {
+            viewModelScope.launch {
+                try {
+                    val result = repository.getPopularDestinations("France")
+                    _franceDestinations.value = result.shuffled()
+                } catch (e: Exception) {
+                    _error.value = "Error: ${e.message}"
+                }
             }
         }
     }

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sharks.ouioui.databinding.FragmentSearchBinding
 import com.sharks.ouioui.utils.DestinationAdapter
@@ -18,7 +18,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: SearchViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by activityViewModels()
     private lateinit var adapter: DestinationAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -33,18 +33,20 @@ class SearchFragment : Fragment() {
         binding.recyclerViewSearchedDestination.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewSearchedDestination.adapter = adapter
 
+        binding.searchEditText.setText(searchViewModel.lastQueryValue ?: "")
+
         binding.searchBar.setOnClickListener {
             val query = binding.searchEditText.text.toString().trim()
             if (query.isNotEmpty()) {
-                viewModel.fetchDestinations(query)
+                searchViewModel.fetchDestinations(query)
             }
         }
 
-        viewModel.destinations.observe(viewLifecycleOwner) { destinations ->
+        searchViewModel.destinations.observe(viewLifecycleOwner) { destinations ->
             adapter.updateData(destinations)
         }
 
-        viewModel.error.observe(viewLifecycleOwner) { error ->
+        searchViewModel.error.observe(viewLifecycleOwner) { error ->
             if (error.isNotEmpty()) {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }

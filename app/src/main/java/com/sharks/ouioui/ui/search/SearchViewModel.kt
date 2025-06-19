@@ -19,13 +19,21 @@ class SearchViewModel @Inject constructor(private val repository: DestinationRep
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
+    var lastQuery: String? = null
+        private set
+    val lastQueryValue: String?
+        get() = lastQuery
+
     fun fetchDestinations(query: String) {
-        viewModelScope.launch {
-            try {
-                val result = repository.getPopularDestinations(query)
-                _destinations.value = result
-            } catch (e: Exception) {
-                _error.value = "Error: ${e.message}"
+        if (query != lastQuery) {
+            lastQuery = query
+            viewModelScope.launch {
+                try {
+                    val result = repository.getPopularDestinations(query)
+                    _destinations.value = result
+                } catch (e: Exception) {
+                    _error.value = "Error: ${e.message}"
+                }
             }
         }
     }
