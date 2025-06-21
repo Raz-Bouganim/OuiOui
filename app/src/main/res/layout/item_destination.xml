@@ -13,11 +13,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageViewDestinationThumbnail"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerCrop" />
+            android:layout_height="180dp">
+
+            <ImageView
+                android:id="@+id/imageViewDestinationThumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <ImageButton
+                android:id="@+id/buttonFavorite"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="8dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Favorite"
+                android:src="@drawable/ic_favorite_border"
+                app:tint="@android:color/white" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/textViewDestinationName"

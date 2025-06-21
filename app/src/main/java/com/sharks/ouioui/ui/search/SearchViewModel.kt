@@ -37,4 +37,11 @@ class SearchViewModel @Inject constructor(private val repository: DestinationRep
             }
         }
     }
+
+    fun toggleFavorite(destination: Destination) {
+        val updatedList = _destinations.value?.map {
+            if (it.id == destination.id) it.copy(isFavorite = !it.isFavorite) else it
+        }
+        _destinations.value = updatedList ?: emptyList()
+    }
 }

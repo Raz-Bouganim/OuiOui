@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sharks.ouioui.R
 import com.sharks.ouioui.utils.DestinationAdapter
+import com.sharks.ouioui.utils.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +25,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by activityViewModels()
+    private val favoriteViewModel: FavoriteViewModel by viewModels()
+
     private lateinit var discoverAdapter: DestinationAdapter
     private lateinit var featuredAdapter: DestinationAdapter
 
@@ -54,12 +57,36 @@ class HomeFragment : Fragment() {
         }
 
         // Display featured destinations in France
-        featuredAdapter = DestinationAdapter(emptyList())
+        featuredAdapter = DestinationAdapter(
+            emptyList(),
+            onFavoriteClick = { destination, position ->
+                favoriteViewModel.toggleFavorite(destination)
+                featuredAdapter.notifyItemChanged(position)
+                val isNowFavorite = favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
+                val message = if (isNowFavorite) "Removed from favorites" else "Added to favorites"
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            },
+            isFavorite = { destination ->
+                favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
+            }
+        )
         binding.recyclerViewFeaturedDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerViewFeaturedDestination.adapter = featuredAdapter
 
         // Display discover destinations
-        discoverAdapter = DestinationAdapter(emptyList())
+        discoverAdapter = DestinationAdapter(
+            emptyList(),
+            onFavoriteClick = { destination, position ->
+                favoriteViewModel.toggleFavorite(destination)
+                discoverAdapter.notifyItemChanged(position)
+                val isNowFavorite = favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
+                val message = if (isNowFavorite) "Removed from favorites" else "Added to favorites"
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            },
+            isFavorite = { destination ->
+                favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
+            }
+        )
         binding.recyclerViewDiscoverDestinations.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewDiscoverDestinations.adapter = discoverAdapter
 

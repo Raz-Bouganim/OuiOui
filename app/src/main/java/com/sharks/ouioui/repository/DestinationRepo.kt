@@ -16,7 +16,8 @@ class DestinationRepo @Inject constructor(private val apiService: ApiService) {
                 title = it.title ?: "No title",
                 link = it.link ?: "No link",
                 description = it.description ?: "No description",
-                thumbnail = it.thumbnail ?: "No thumbnail"
+                thumbnail = it.thumbnail ?: "No thumbnail",
+                isFavorite = false
             )
         } ?: emptyList()
     }
