@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import com.sharks.ouioui.databinding.FragmentSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,14 +30,20 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Dark mode toggle
-        binding.switchDark.isChecked =
-            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val isDark = prefs.getBoolean("dark_mode", false)
+        binding.switchDark.isChecked = isDark
         binding.switchDark.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean("dark_mode", checked).apply()
+
             AppCompatDelegate.setDefaultNightMode(
                 if (checked) AppCompatDelegate.MODE_NIGHT_YES
-                else AppCompatDelegate.MODE_NIGHT_NO
+                else           AppCompatDelegate.MODE_NIGHT_NO
             )
+
+            requireActivity().recreate()
         }
+
 
         // Email placeholder
         binding.tvEmail.text = "user@example.com"

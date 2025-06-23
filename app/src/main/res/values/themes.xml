@@ -3,6 +3,8 @@
 
     <!-- Base M3 DayNight theme without ActionBar -->
     <style name="Base.Theme.OuiOui" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Make the window itself use your background color -->
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@android:color/white</item>

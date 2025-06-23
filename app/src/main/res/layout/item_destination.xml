@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:cardCornerRadius="8dp"
     app:cardElevation="6dp">
 
@@ -32,7 +33,7 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="Favorite"
                 android:src="@drawable/ic_favorite_border"
-                app:tint="@android:color/white" />
+                app:tint="?attr/colorOnSurface" />
 
         </FrameLayout>
 
@@ -44,7 +45,8 @@
             android:textSize="16sp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"/>
 
         <TextView
             android:id="@+id/textViewDestinationDescription"
@@ -55,6 +57,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="?attr/colorOnSurfaceVariant"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
