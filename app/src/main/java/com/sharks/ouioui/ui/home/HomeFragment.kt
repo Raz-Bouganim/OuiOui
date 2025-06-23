@@ -1,12 +1,16 @@
 package com.sharks.ouioui.ui.home
 
 import android.os.Bundle
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Looper
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.sharks.ouioui.databinding.FragmentHomeBinding
@@ -17,6 +21,8 @@ import com.sharks.ouioui.data.model.Destination
 import com.sharks.ouioui.utils.DestinationAdapter
 import com.sharks.ouioui.utils.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
+import com.google.android.gms.location.LocationServices
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -46,6 +52,8 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1001
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -92,12 +100,12 @@ class HomeFragment : Fragment() {
             binding.recyclerViewDiscoverDestinations.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
         }
 
-        homeViewModel.loadingFrance.observe(viewLifecycleOwner) { isLoading ->
+        homeViewModel.loadingLocationDestinations.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBarFeatured.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.recyclerViewFeaturedDestination.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
         }
 
-        homeViewModel.franceDestinations.observe(viewLifecycleOwner) { destinations ->
+        homeViewModel.locationDestinations.observe(viewLifecycleOwner) { destinations ->
             val shuffled = destinations
             featuredAdapter.updateData(shuffled)
             featuredPosition = 0
@@ -114,7 +122,7 @@ class HomeFragment : Fragment() {
         }
 
         favoriteViewModel.favorites.observe(viewLifecycleOwner) { favorites ->
-            featuredAdapter.updateData(homeViewModel.franceDestinations.value ?: emptyList())
+            featuredAdapter.updateData(homeViewModel.locationDestinations.value ?: emptyList())
             discoverAdapter.updateData(homeViewModel.worldDestinations.value?.take(30) ?: emptyList())
 
             lastToggledDestination?.let { toggledTitle ->
@@ -128,8 +136,53 @@ class HomeFragment : Fragment() {
             lastFavorites = favorites
         }
 
-        homeViewModel.fetchFranceDestinations()
+        requestLocationAndFetchFeatured()
         //homeViewModel.fetchWorldDestinations()
+    }
+
+    @Suppress("DEPRECATION")
+    private fun requestLocationAndFetchFeatured() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        } else {
+            fetchCountryAndDestinations()
+        }
+    }
+
+    @Deprecated("DEPRECATION")
+    @Suppress("DEPRECATION")
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            fetchCountryAndDestinations()
+        } else {
+            homeViewModel.fetchDestinationsForCountry("France")
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun fetchCountryAndDestinations() {
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                val country = addresses?.firstOrNull()?.countryName
+                if (country != null) {
+                    homeViewModel.fetchDestinationsForCountry(country)
+                } else {
+                    Toast.makeText(requireContext(), "Unable to determine country, showing France", Toast.LENGTH_SHORT).show()
+                    homeViewModel.fetchDestinationsForCountry("France")
+                }
+            } else {
+                Toast.makeText(requireContext(), "Location is null, showing France", Toast.LENGTH_SHORT).show()
+                homeViewModel.fetchDestinationsForCountry("France")
+            }
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Failed to get location, showing France", Toast.LENGTH_SHORT).show()
+            homeViewModel.fetchDestinationsForCountry("France")
+        }
     }
 
     override fun onDestroyView() {

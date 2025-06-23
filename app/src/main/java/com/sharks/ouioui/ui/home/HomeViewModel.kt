@@ -1,6 +1,5 @@
 package com.sharks.ouioui.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,14 +16,14 @@ class HomeViewModel @Inject constructor(private val repository: DestinationRepo)
     private val _worldDestinations = MutableLiveData<List<Destination>>()
     val worldDestinations: LiveData<List<Destination>> = _worldDestinations
 
-    private val _franceDestinations = MutableLiveData<List<Destination>>()
-    val franceDestinations: LiveData<List<Destination>> = _franceDestinations
+    private val _locationDestinations = MutableLiveData<List<Destination>>()
+    val locationDestinations: LiveData<List<Destination>> = _locationDestinations
 
     private val _loadingWorld = MutableLiveData<Boolean>()
     val loadingWorld: LiveData<Boolean> = _loadingWorld
 
-    private val _loadingFrance = MutableLiveData<Boolean>()
-    val loadingFrance: LiveData<Boolean> = _loadingFrance
+    private val _loadingLocationDestinations = MutableLiveData<Boolean>()
+    val loadingLocationDestinations: LiveData<Boolean> = _loadingLocationDestinations
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -59,19 +58,16 @@ class HomeViewModel @Inject constructor(private val repository: DestinationRepo)
         }
     }
 
-    fun fetchFranceDestinations() {
-        if (_franceDestinations.value.isNullOrEmpty()) {
-            _loadingFrance.value = true
-            viewModelScope.launch {
-                try {
-                    val result = repository.getPopularDestinations("france")
-                    _franceDestinations.value = result.shuffled()
-                } catch (e: Exception) {
-                    _error.value = "Error: ${e.message}"
-                }
-                finally {
-                    _loadingFrance.value = false
-                }
+    fun fetchDestinationsForCountry(country: String) {
+        _loadingLocationDestinations.value = true
+        viewModelScope.launch {
+            try {
+                val result = repository.getPopularDestinations(country)
+                _locationDestinations.value = result.shuffled()
+            } catch (e: Exception) {
+                _error.value = "Error: ${e.message}"
+            } finally {
+                _loadingLocationDestinations.value = false
             }
         }
     }
