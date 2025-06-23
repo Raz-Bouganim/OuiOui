@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.preference.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -83,4 +84,8 @@ dependencies {
 
     // Google Play Services
     implementation(libs.play.services.location)
+
+    // Splash Screen
+    implementation(libs.androidx.core.splashscreen)
+
 }

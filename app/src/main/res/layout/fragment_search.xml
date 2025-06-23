@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light"
+    android:background="?android:attr/colorBackground"
     android:padding="16dp">
 
     <TextView
@@ -14,7 +14,7 @@
         android:text="Search"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:textColor="@color/text_primary_light"
+        android:textColor="?attr/colorOnBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +25,7 @@
         android:text="Find your next destination"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/text_secondary_light"
+        android:textColor="?attr/colorOnBackground"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchTitle" />
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/searchSubtitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/bg_search_bar"
+        android:background="?attr/colorSurface"
         android:padding="8dp"
         android:elevation="8dp"
         android:gravity="center"
@@ -51,7 +51,7 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_search"
             android:contentDescription="Search icon"
-            app:tint="@color/text_secondary_light" />
+            app:tint="?attr/colorOnSurface" />
 
         <EditText
             android:id="@+id/searchEditText"
@@ -61,7 +61,8 @@
             android:layout_weight="1"
             android:hint="Type a country to search for..."
             android:background="@android:color/transparent"
-            android:textColor="@color/text_primary_light"
+            android:textColor="?attr/colorOnBackground"
+            android:textColorHint="?attr/colorOnBackground"
             android:inputType="text"
             android:imeOptions="actionSearch"/>
     </LinearLayout>
