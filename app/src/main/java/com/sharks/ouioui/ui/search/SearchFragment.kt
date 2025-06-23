@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sharks.ouioui.data.model.Destination
 import com.sharks.ouioui.databinding.FragmentSearchBinding
 import com.sharks.ouioui.utils.DestinationAdapter
 import com.sharks.ouioui.utils.FavoriteViewModel
@@ -21,9 +21,12 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val searchViewModel: SearchViewModel by activityViewModels()
-    private val favoriteViewModel: FavoriteViewModel by viewModels()
+    private val favoriteViewModel: FavoriteViewModel by activityViewModels()
 
     private lateinit var adapter: DestinationAdapter
+
+    private var lastToggledDestination: String? = null
+    private var lastFavorites: List<Destination> = emptyList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -36,17 +39,15 @@ class SearchFragment : Fragment() {
         adapter = DestinationAdapter(
             emptyList(),
             onFavoriteClick = { destination, position ->
+                lastToggledDestination = destination.title
                 favoriteViewModel.toggleFavorite(destination)
-                adapter.notifyItemChanged(position)
-                val isNowFavorite = favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
-                val message = if (isNowFavorite) "Removed from favorites" else "Added to favorites"
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             },
             isFavorite = { destination ->
-                favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
+                favoriteViewModel.favorites.value?.any { it.title == destination.title } == true
             }
         )
-        binding.recyclerViewSearchedDestination.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewSearchedDestination.layoutManager =
+            LinearLayoutManager(requireContext())
         binding.recyclerViewSearchedDestination.adapter = adapter
 
         binding.searchEditText.setText(searchViewModel.lastQueryValue ?: "")
@@ -66,6 +67,18 @@ class SearchFragment : Fragment() {
             if (error.isNotEmpty()) {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        favoriteViewModel.favorites.observe(viewLifecycleOwner) { favorites ->
+            lastToggledDestination?.let { toggledTitle ->
+                val wasFavorite = lastFavorites.any { it.title == toggledTitle }
+                val isFavorite = favorites.any { it.title == toggledTitle }
+                if (wasFavorite != isFavorite) {
+                    val message = if (isFavorite) "Added to favorites" else "Removed from favorites"
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                }
+            }
+            lastFavorites = favorites
         }
     }
 

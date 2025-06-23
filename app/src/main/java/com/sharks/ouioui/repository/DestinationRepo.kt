@@ -13,7 +13,7 @@ class DestinationRepo @Inject constructor(private val apiService: ApiService) {
         val response = apiService.getPopularDestinations(query = query, apiKey = API_KEY)
         return response.popular_destinations?.destinations?.map {
             Destination(
-                title = it.title ?: "No title",
+                title = it.title,
                 link = it.link ?: "No link",
                 description = it.description ?: "No description",
                 thumbnail = it.thumbnail ?: "No thumbnail",

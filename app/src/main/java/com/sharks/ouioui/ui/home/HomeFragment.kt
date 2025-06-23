@@ -9,11 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.sharks.ouioui.databinding.FragmentHomeBinding
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sharks.ouioui.R
+import com.sharks.ouioui.data.model.Destination
 import com.sharks.ouioui.utils.DestinationAdapter
 import com.sharks.ouioui.utils.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,10 +25,13 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by activityViewModels()
-    private val favoriteViewModel: FavoriteViewModel by viewModels()
+    private val favoriteViewModel: FavoriteViewModel by activityViewModels()
 
     private lateinit var discoverAdapter: DestinationAdapter
     private lateinit var featuredAdapter: DestinationAdapter
+
+    private var lastToggledDestination: String? = null
+    private var lastFavorites: List<Destination> = emptyList()
 
     private val autoScrollHandler = Handler(Looper.getMainLooper())
     private var featuredPosition = 0
@@ -60,14 +63,11 @@ class HomeFragment : Fragment() {
         featuredAdapter = DestinationAdapter(
             emptyList(),
             onFavoriteClick = { destination, position ->
+                lastToggledDestination = destination.title
                 favoriteViewModel.toggleFavorite(destination)
-                featuredAdapter.notifyItemChanged(position)
-                val isNowFavorite = favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
-                val message = if (isNowFavorite) "Removed from favorites" else "Added to favorites"
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             },
             isFavorite = { destination ->
-                favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
+                favoriteViewModel.favorites.value?.any { it.title == destination.title } == true
             }
         )
         binding.recyclerViewFeaturedDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -77,14 +77,11 @@ class HomeFragment : Fragment() {
         discoverAdapter = DestinationAdapter(
             emptyList(),
             onFavoriteClick = { destination, position ->
+                lastToggledDestination = destination.title
                 favoriteViewModel.toggleFavorite(destination)
-                discoverAdapter.notifyItemChanged(position)
-                val isNowFavorite = favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
-                val message = if (isNowFavorite) "Removed from favorites" else "Added to favorites"
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             },
             isFavorite = { destination ->
-                favoriteViewModel.favorites.value?.any { it.id == destination.id } ?: false
+                favoriteViewModel.favorites.value?.any { it.title == destination.title } == true
             }
         )
         binding.recyclerViewDiscoverDestinations.layoutManager = LinearLayoutManager(requireContext())
@@ -116,8 +113,23 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
 
+        favoriteViewModel.favorites.observe(viewLifecycleOwner) { favorites ->
+            featuredAdapter.updateData(homeViewModel.franceDestinations.value ?: emptyList())
+            discoverAdapter.updateData(homeViewModel.worldDestinations.value?.take(30) ?: emptyList())
+
+            lastToggledDestination?.let { toggledTitle ->
+                val wasFavorite = lastFavorites.any { it.title == toggledTitle }
+                val isFavorite = favorites.any { it.title == toggledTitle }
+                if (wasFavorite != isFavorite) {
+                    val message = if (isFavorite) "Added to favorites" else "Removed from favorites"
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                }
+            }
+            lastFavorites = favorites
+        }
+
         homeViewModel.fetchFranceDestinations()
-        homeViewModel.fetchWorldDestinations()
+        //homeViewModel.fetchWorldDestinations()
     }
 
     override fun onDestroyView() {

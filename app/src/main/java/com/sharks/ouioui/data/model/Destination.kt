@@ -13,8 +13,7 @@ data class PopularDestinations(
 
 @Entity(tableName = "favorite_destinations")
 data class Destination(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val title: String?,
+    @PrimaryKey val title: String,
     val link: String?,
     val description: String?,
     val thumbnail: String?,

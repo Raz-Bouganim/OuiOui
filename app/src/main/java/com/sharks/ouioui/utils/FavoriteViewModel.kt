@@ -24,7 +24,7 @@ class FavoriteViewModel @Inject constructor(private val repository: FavoriteRepo
 
     fun toggleFavorite(destination: Destination) {
         val current = favorites.value ?: emptyList()
-        if (current.any { it.id == destination.id }) {
+        if (current.any { it.title == destination.title }) {
             removeFavorite(destination)
         } else {
             addFavorite(destination)
