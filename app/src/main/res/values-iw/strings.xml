@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navHomeText">בית</string>
+    <string name="navSearchText">חיפוש</string>
+    <string name="navSavedText">שמורים</string>
+    <string name="navSettingsText">הגדרות</string>
+    <string name="exploreBeautifulDestinationsText">מצאו את היעד הבא שלכם 🌍</string>
+    <string name="searchIconDescText">חיפוש</string>
+    <string name="featuredDestinationHeaderText">יעדים מומלצים</string>
+    <string name="discoverHeaderText">גלה יעדים חדשים</string>
+    <string name="savedDestinationsHeaderText">יעדים שמורים</string>
+    <string name="searchHeaderText">חיפוש</string>
+    <string name="findYourNextDestinationText">מצאו את היעד הבא שלכם</string>
+    <string name="searchHintText">הקלד מדינה לחיפוש</string>
+    <string name="appearanceText">נראות</string>
+    <string name="darkModeText">מצב חושך</string>
+    <string name="accountText">משתמש</string>
+    <string name="emailText">אימייל</string>
+    <string name="logoutText">יציאה</string>
+    <string name="moreText">עוד</string>
+    <string name="aboutText">עלינו</string>
+    <string name="rateThisAppText">דרג את האפליקציה</string>
+    <string name="languageText">שפה</string>
+    <string name="englishText">אנגלית</string>
+    <string name="favoriteText">מועדף</string>
+    <string name="destinationNameText">שם יעד</string>
+    <string name="shortDescriptionOfTheDestinationText">הסבר קצר על היעד</string>
+    <string name="noLinkText">אין קישור.</string>
+    <string name="noDescriptionText">אין תיאור זמין.</string>
+    <string name="noThumbnailText">אין תמונה זמינה.</string>
+    <string name="addedToFavoritesText">נוסף למועדפים</string>
+    <string name="removedFromFavoritesText">הוסר מהמועדפים</string>
+    <string name="unableToDetermineCountryText">לא ניתן למצוא מדינה, צרפת מוצגת</string>
+    <string name="locationIsNullText">מיקום לא זמין, צרפת מוצגת</string>
+    <string name="failedToGetLocationText">טעינת מיקום נכשלה, צרפת מוצגת</string>
+    <string name="loggedOutText">התנתקת מחשבונך</string>
+    <string name="aboutOuiOuiText">על האפליקציה</string>
+    <string name="okText">אוקיי</string>
+    <string name="selectLanguageText">בחר שפה</string>
+</resources>

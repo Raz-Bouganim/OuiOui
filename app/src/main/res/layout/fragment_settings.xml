@@ -24,7 +24,7 @@
                 style="@style/OuiOui.Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Appearance"
+                android:text="@string/appearanceText"
                 android:layout_marginTop="8dp"/>
 
             <LinearLayout
@@ -47,8 +47,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="16dp"
+                    android:paddingEnd="8dp"
                     style="@style/OuiOui.Text.Body"
-                    android:text="Dark Mode" />
+                    android:text="@string/darkModeText" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switchDark"
@@ -61,7 +62,7 @@
                 style="@style/OuiOui.Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Account"
+                android:text="@string/accountText"
                 android:layout_marginTop="24dp"/>
 
             <LinearLayout
@@ -89,15 +90,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
                         style="@style/OuiOui.Text.Body"
-                        android:text="Email" />
+                        android:text="@string/emailText" />
 
                     <TextView
                         android:id="@+id/tvEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/OuiOui.Text.Subtitle"
-                        android:text="user@example.com" />
+                        android:text="@string/userExampleEmailText" />
                 </LinearLayout>
 
                 <View
@@ -124,15 +126,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
                         style="@style/OuiOui.Text.Body"
-                        android:text="Logout" />
+                        android:text="@string/logoutText" />
 
                     <Button
                         android:id="@+id/btnLogout"
                         style="@style/OuiOui.Button.Outlined"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Logout" />
+                        android:text="@string/logoutText" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -141,7 +144,7 @@
                 style="@style/OuiOui.Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="More"
+                android:text="@string/moreText"
                 android:layout_marginTop="24dp"/>
 
             <LinearLayout
@@ -170,8 +173,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
                         style="@style/OuiOui.Text.Body"
-                        android:text="About" />
+                        android:text="@string/aboutText" />
                 </LinearLayout>
 
                 <View
@@ -199,8 +203,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
                         style="@style/OuiOui.Text.Body"
-                        android:text="Rate this app" />
+                        android:text="@string/rateThisAppText" />
                 </LinearLayout>
 
                 <View
@@ -229,15 +234,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
                         style="@style/OuiOui.Text.Body"
-                        android:text="Language" />
+                        android:text="@string/languageText" />
 
                     <TextView
                         android:id="@+id/tvLanguage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/OuiOui.Text.Subtitle"
-                        android:text="English" />
+                        android:text="@string/englishText" />
                 </LinearLayout>
 
             </LinearLayout>

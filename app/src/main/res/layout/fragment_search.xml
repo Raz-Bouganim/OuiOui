@@ -11,7 +11,7 @@
         android:id="@+id/searchTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
+        android:text="@string/searchHeaderText"
         android:textSize="36sp"
         android:textStyle="bold"
         android:textColor="?attr/colorOnBackground"
@@ -22,7 +22,7 @@
         android:id="@+id/searchSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Find your next destination"
+        android:text="@string/findYourNextDestinationText"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="?attr/colorOnBackground"
@@ -50,7 +50,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_search"
-            android:contentDescription="Search icon"
+            android:contentDescription="@string/searchIconDescText"
             app:tint="?attr/colorOnSurface" />
 
         <EditText
@@ -59,7 +59,7 @@
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:hint="Type a country to search for..."
+            android:hint="@string/searchHintText"
             android:background="@android:color/transparent"
             android:textColor="?attr/colorOnBackground"
             android:textColorHint="?attr/colorOnBackground"

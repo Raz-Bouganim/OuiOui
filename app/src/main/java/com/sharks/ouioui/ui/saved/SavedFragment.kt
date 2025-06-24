@@ -1,5 +1,6 @@
 package com.sharks.ouioui.ui.saved
 
+import com.sharks.ouioui.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,7 +55,7 @@ class SavedFragment : Fragment() {
                 val wasFavorite = lastFavorites.any { it.title == toggledTitle }
                 val isFavorite = favorites.any { it.title == toggledTitle }
                 if (wasFavorite != isFavorite) {
-                    val message = if (isFavorite) "Added to favorites" else "Removed from favorites"
+                    val message = if (isFavorite) getString(R.string.addedToFavoritesText) else getString(R.string.removedFromFavoritesText)
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 }
             }

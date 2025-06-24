@@ -12,7 +12,7 @@
         android:id="@+id/textViewSavedTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Saved Destinations"
+        android:text="@string/savedDestinationsHeaderText"
         android:textSize="36sp"
         android:textStyle="bold"
         android:textColor="?attr/colorOnBackground"

@@ -1,3 +1,43 @@
 <resources>
-    <string name="app_name">OuiOui</string>
+    <string name="app_name" translatable="false">OuiOui</string>
+    <string name="navHomeText">Home</string>
+    <string name="navSearchText">Search</string>
+    <string name="navSavedText">Saved</string>
+    <string name="navSettingsText">Settings</string>
+    <string name="ouiouiTitleText" translatable="false">OuiOui</string>
+    <string name="exploreBeautifulDestinationsText">Explore beautiful destinations 🌍</string>
+    <string name="searchIconDescText">Search</string>
+    <string name="featuredDestinationHeaderText">Featured Destination</string>
+    <string name="discoverHeaderText">Discover</string>
+    <string name="savedDestinationsHeaderText">Saved Destinations</string>
+    <string name="searchHeaderText">Search</string>
+    <string name="findYourNextDestinationText">Find your next destination</string>
+    <string name="searchHintText">Type a country to search for...</string>
+    <string name="appearanceText">Appearance</string>
+    <string name="darkModeText">Dark Mode</string>
+    <string name="accountText">Account</string>
+    <string name="emailText">Email</string>
+    <string name="userExampleEmailText" translatable="false">user@example.com</string>
+    <string name="logoutText">Logout</string>
+    <string name="moreText">More</string>
+    <string name="aboutText">About</string>
+    <string name="rateThisAppText">Rate this app</string>
+    <string name="languageText">Language</string>
+    <string name="englishText">English</string>
+    <string name="favoriteText">Favorite</string>
+    <string name="destinationNameText">Destination Name</string>
+    <string name="shortDescriptionOfTheDestinationText">Short description of the destination.</string>
+    <string name="noLinkText">No link.</string>
+    <string name="noDescriptionText">No description available.</string>
+    <string name="noThumbnailText">No image available.</string>
+    <string name="addedToFavoritesText">Added to favorites</string>
+    <string name="removedFromFavoritesText">Removed from favorites</string>
+    <string name="unableToDetermineCountryText">Unable to determine country, showing France</string>
+    <string name="locationIsNullText">Location is null, showing France</string>
+    <string name="failedToGetLocationText">Failed to get location, showing France</string>
+    <string name="loggedOutText">Logged Out</string>
+    <string name="aboutOuiOuiText">About OuiOui</string>
+    <string name="ouiouiVersionText" translatable="false">OuiOui v1.0&#10;© 2025 Your Company</string>
+    <string name="okText">OK</string>
+    <string name="selectLanguageText">Select Language</string>
 </resources>

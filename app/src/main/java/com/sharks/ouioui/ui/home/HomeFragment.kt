@@ -129,7 +129,7 @@ class HomeFragment : Fragment() {
                 val wasFavorite = lastFavorites.any { it.title == toggledTitle }
                 val isFavorite = favorites.any { it.title == toggledTitle }
                 if (wasFavorite != isFavorite) {
-                    val message = if (isFavorite) "Added to favorites" else "Removed from favorites"
+                    val message = if (isFavorite) getString(R.string.addedToFavoritesText) else getString(R.string.removedFromFavoritesText)
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -172,15 +172,15 @@ class HomeFragment : Fragment() {
                 if (country != null) {
                     homeViewModel.fetchDestinationsForCountry(country)
                 } else {
-                    Toast.makeText(requireContext(), "Unable to determine country, showing France", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.unableToDetermineCountryText), Toast.LENGTH_SHORT).show()
                     homeViewModel.fetchDestinationsForCountry("France")
                 }
             } else {
-                Toast.makeText(requireContext(), "Location is null, showing France", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.locationIsNullText), Toast.LENGTH_SHORT).show()
                 homeViewModel.fetchDestinationsForCountry("France")
             }
         }.addOnFailureListener {
-            Toast.makeText(requireContext(), "Failed to get location, showing France", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.failedToGetLocationText), Toast.LENGTH_SHORT).show()
             homeViewModel.fetchDestinationsForCountry("France")
         }
     }

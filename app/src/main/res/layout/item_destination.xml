@@ -31,7 +31,7 @@
                 android:layout_gravity="top|end"
                 android:layout_margin="8dp"
                 android:background="@android:color/transparent"
-                android:contentDescription="Favorite"
+                android:contentDescription="@string/favoriteText"
                 android:src="@drawable/ic_favorite_border"
                 app:tint="?attr/colorOnSurface" />
 
@@ -41,7 +41,7 @@
             android:id="@+id/textViewDestinationName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Destination Name"
+            android:text="@string/destinationNameText"
             android:textSize="16sp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -52,7 +52,7 @@
             android:id="@+id/textViewDestinationDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Short description of the destination."
+            android:text="@string/shortDescriptionOfTheDestinationText"
             android:textSize="14sp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"

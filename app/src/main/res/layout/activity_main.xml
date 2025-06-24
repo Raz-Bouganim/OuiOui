@@ -49,7 +49,7 @@
 
             <TextView
                 android:id="@+id/nav_home_text"
-                android:text="Home"
+                android:text="@string/navHomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/nav_text_color"/>
@@ -71,7 +71,7 @@
 
             <TextView
                 android:id="@+id/nav_search_text"
-                android:text="Search"
+                android:text="@string/navSearchText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/nav_text_color"/>
@@ -91,7 +91,7 @@
 
             <TextView
                 android:id="@+id/nav_saved_text"
-                android:text="Saved"
+                android:text="@string/navSavedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/nav_text_color"/>
@@ -111,7 +111,7 @@
 
             <TextView
                 android:id="@+id/nav_settings_text"
-                android:text="Settings"
+                android:text="@string/navSettingsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/nav_text_color"/>
