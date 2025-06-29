@@ -136,8 +136,12 @@ class HomeFragment : Fragment() {
             lastFavorites = favorites
         }
 
-        requestLocationAndFetchFeatured()
-        //homeViewModel.fetchWorldDestinations()
+        if (homeViewModel.locationDestinations.value.isNullOrEmpty()) {
+            requestLocationAndFetchFeatured()
+        }
+        if (homeViewModel.worldDestinations.value.isNullOrEmpty()) {
+            //homeViewModel.fetchWorldDestinations()
+        }
     }
 
     @Suppress("DEPRECATION")

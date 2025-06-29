@@ -2,8 +2,7 @@ package com.sharks.ouioui.ui.settings
 
 import com.sharks.ouioui.R
 import android.app.AlertDialog
-import android.content.Intent
-import android.net.Uri
+import android.content.Context
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
@@ -14,6 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.sharks.ouioui.databinding.FragmentSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
@@ -40,46 +40,25 @@ class SettingsFragment : Fragment() {
                 if (checked) AppCompatDelegate.MODE_NIGHT_YES
                 else           AppCompatDelegate.MODE_NIGHT_NO
             )
-
             requireActivity().recreate()
         }
 
+        // Language: show current device language
+        val locale = Locale.getDefault()
+        binding.tvLanguage.text = locale.displayLanguage
 
-        // Email placeholder
-        binding.tvEmail.text = getString(R.string.userExampleEmailText)
-
-        // Logout button
-        binding.btnLogout.setOnClickListener {
-            // TODO: implement logout
-            android.widget.Toast
-                .makeText(requireContext(), getString(R.string.loggedOutText), Toast.LENGTH_SHORT)
-                .show()
-        }
-
-        // About dialog
+        // About: show a Toast
         binding.rowAbout.setOnClickListener {
-            AlertDialog.Builder(requireContext())
-                .setTitle(getString(R.string.aboutOuiOuiText))
-                .setMessage(getString(R.string.ouiouiVersionText))
-                .setPositiveButton(getString(R.string.okText), null)
-                .show()
+            Toast.makeText(requireContext(), getString(R.string.aboutOuiOuiText), Toast.LENGTH_SHORT).show()
         }
 
-        // Rate this app
+        // Rate: show a rating dialog
         binding.rowRate.setOnClickListener {
-            startActivity(Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("market://details?id=${requireContext().packageName}")
-            ))
-        }
-
-        // Language selector
-        binding.rowLanguage.setOnClickListener {
-            val langs = arrayOf("English", "עברית")
+            val ratings = arrayOf("★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★")
             AlertDialog.Builder(requireContext())
-                .setTitle(getString(R.string.selectLanguageText))
-                .setItems(langs) { dlg, idx ->
-                    binding.tvLanguage.text = langs[idx]
+                .setTitle(getString(R.string.rateThisAppText))
+                .setItems(ratings) { dlg, idx ->
+                    Toast.makeText(requireContext(), "You rated: ${ratings[idx]}", Toast.LENGTH_SHORT).show()
                     dlg.dismiss()
                 }
                 .show()

@@ -11,7 +11,6 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- ONLY one direct child allowed here -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,88 +54,6 @@
                     android:id="@+id/switchDark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <!-- Account -->
-            <TextView
-                style="@style/OuiOui.Text.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/accountText"
-                android:layout_marginTop="24dp"/>
-
-            <LinearLayout
-                style="@style/OuiOui.Card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- Email row -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:id="@+id/ivEmail"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_email" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="8dp"
-                        style="@style/OuiOui.Text.Body"
-                        android:text="@string/emailText" />
-
-                    <TextView
-                        android:id="@+id/tvEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/OuiOui.Text.Subtitle"
-                        android:text="@string/userExampleEmailText" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/colorSurfaceVariant" />
-
-                <!-- Logout row -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:id="@+id/ivLogout"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_logout" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="8dp"
-                        style="@style/OuiOui.Text.Body"
-                        android:text="@string/logoutText" />
-
-                    <Button
-                        android:id="@+id/btnLogout"
-                        style="@style/OuiOui.Button.Outlined"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/logoutText" />
-                </LinearLayout>
             </LinearLayout>
 
             <!-- More -->
@@ -243,9 +160,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/OuiOui.Text.Subtitle"
-                        android:text="@string/englishText" />
+                        android:text=""/>
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
