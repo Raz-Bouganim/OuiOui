@@ -9,12 +9,19 @@ import com.sharks.ouioui.R
 import com.sharks.ouioui.data.model.Destination
 import com.sharks.ouioui.databinding.ItemDestinationBinding
 
+/**
+ * RecyclerView Adapter for displaying a list of destinations.
+ * Handles favorite toggling and image loading.
+ */
 class DestinationAdapter(
     private var destinations: List<Destination>,
     private val onFavoriteClick: (Destination, Int)-> Unit,
     private val isFavorite: (Destination) -> Boolean
 ) : RecyclerView.Adapter<DestinationAdapter.DestinationViewHolder>() {
 
+    /**
+     * ViewHolder for a single destination item.
+     */
     inner class DestinationViewHolder(private val binding: ItemDestinationBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(destination: Destination, position: Int) {
             binding.textViewDestinationName.text = destination.title
@@ -44,13 +51,16 @@ class DestinationAdapter(
         return DestinationViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = destinations.size
-
     override fun onBindViewHolder(holder: DestinationViewHolder, position: Int) {
         holder.bind(destinations[position], position)
 
     }
 
+    override fun getItemCount(): Int = destinations.size
+
+    /**
+     * Updates the adapter's data and refreshes the list.
+     */
     fun updateData(newDestinations: List<Destination>) {
         this.destinations = newDestinations
         notifyDataSetChanged()

@@ -10,9 +10,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Home screen.
+ * Handles fetching and exposing destination data for the UI.
+ */
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: DestinationRepo) : ViewModel() {
-
     private val _worldDestinations = MutableLiveData<List<Destination>>()
     val worldDestinations: LiveData<List<Destination>> = _worldDestinations
 
@@ -34,6 +37,9 @@ class HomeViewModel @Inject constructor(private val repository: DestinationRepo)
         "India", "Brazil", "Mexico", "South Africa", "Turkey", "Russia", "Netherlands"
     )
 
+    /**
+     * Fetches a shuffled list of popular destinations from random countries.
+     */
     fun fetchWorldDestinations() {
         if (_worldDestinations.value.isNullOrEmpty()) {
             _loadingWorld.value = true
@@ -58,6 +64,9 @@ class HomeViewModel @Inject constructor(private val repository: DestinationRepo)
         }
     }
 
+    /**
+     * Fetches popular destinations for a specific country.
+     */
     fun fetchDestinationsForCountry(country: String) {
         _loadingLocationDestinations.value = true
         viewModelScope.launch {

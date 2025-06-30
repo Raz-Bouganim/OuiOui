@@ -1,5 +1,8 @@
 package com.sharks.ouioui.utils
 
+/**
+ * Holds application-wide constant values.
+ */
 class Constants {
     companion object {
         const val BASE_URL = "https://serpapi.com/"

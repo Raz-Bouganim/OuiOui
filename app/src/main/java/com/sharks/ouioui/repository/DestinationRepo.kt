@@ -8,6 +8,10 @@ import com.sharks.ouioui.utils.Constants.Companion.API_KEY
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+/**
+ * Repository for fetching popular destinations from the remote API.
+ * Handles mapping API responses to local objects(Destination) with default values.
+ */
 class DestinationRepo @Inject constructor(
     private val apiService: ApiService,
     @ApplicationContext private val context: Context

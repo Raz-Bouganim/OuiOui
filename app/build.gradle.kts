@@ -84,8 +84,4 @@ dependencies {
 
     // Google Play Services
     implementation(libs.play.services.location)
-
-    // Splash Screen
-    implementation(libs.androidx.core.splashscreen)
-
 }

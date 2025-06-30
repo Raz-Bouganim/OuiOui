@@ -15,6 +15,10 @@ import com.sharks.ouioui.utils.DestinationAdapter
 import com.sharks.ouioui.utils.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Fragment for searching and displaying travel destinations.
+ * Handles search input, result display, and favorite toggling.
+ */
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
 
@@ -37,29 +41,45 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupRecyclerView()
+        setupSearchBar()
+        observeViewModels()
+    }
+
+    /**
+     * Sets up the RecyclerView and its adapter.
+     */
+    private fun setupRecyclerView() {
         adapter = DestinationAdapter(
             emptyList(),
-            onFavoriteClick = { destination, position ->
+            onFavoriteClick = { destination, _ ->
                 lastToggledDestination = destination.title
                 favoriteViewModel.toggleFavorite(destination)
+                searchViewModel.toggleFavorite(destination)
             },
             isFavorite = { destination ->
                 favoriteViewModel.favorites.value?.any { it.title == destination.title } == true
             }
         )
-        binding.recyclerViewSearchedDestination.layoutManager =
-            LinearLayoutManager(requireContext())
+        binding.recyclerViewSearchedDestination.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewSearchedDestination.adapter = adapter
+    }
 
+    /**
+     * Sets up the search bar and its click listener.
+     */
+    private fun setupSearchBar() {
         binding.searchEditText.setText(searchViewModel.lastQueryValue ?: "")
-
         binding.searchBar.setOnClickListener {
             val query = binding.searchEditText.text.toString().trim()
             if (query.isNotEmpty()) {
                 searchViewModel.fetchDestinations(query)
             }
         }
+    }
 
+    /** Observes LiveData from ViewModels to update UI reactively. */
+    private fun observeViewModels() {
         searchViewModel.destinations.observe(viewLifecycleOwner) { destinations ->
             adapter.updateData(destinations)
         }

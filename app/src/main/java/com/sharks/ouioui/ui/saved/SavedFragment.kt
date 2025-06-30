@@ -16,6 +16,9 @@ import com.sharks.ouioui.utils.DestinationAdapter
 import com.sharks.ouioui.utils.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Fragment displaying saved favorite destinations.
+ */
 @AndroidEntryPoint
 class SavedFragment : Fragment() {
 
@@ -28,18 +31,30 @@ class SavedFragment : Fragment() {
     private var lastToggledDestination: String? = null
     private var lastFavorites: List<Destination> = emptyList()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerViewSavedDestinations.layoutManager = LinearLayoutManager(requireContext())
 
+        setupRecyclerView()
+        observeFavorites()
+    }
+
+    /**
+     * Sets up the RecyclerView and its adapter.
+     * */
+    private fun setupRecyclerView() {
+        binding.recyclerViewSavedDestinations.layoutManager = LinearLayoutManager(requireContext())
         savedAdapter = DestinationAdapter(
             emptyList(),
-            onFavoriteClick = { destination, position->
+            onFavoriteClick = { destination, _ ->
                 lastToggledDestination = destination.title
                 favoriteViewModel.removeFavorite(destination)
             },
@@ -48,14 +63,20 @@ class SavedFragment : Fragment() {
             }
         )
         binding.recyclerViewSavedDestinations.adapter = savedAdapter
+    }
 
+    /**
+     * Observes the favorites LiveData and updates the UI.
+     */
+    private fun observeFavorites() {
         favoriteViewModel.favorites.observe(viewLifecycleOwner) { favorites ->
             savedAdapter.updateData(favorites)
             lastToggledDestination?.let { toggledTitle ->
                 val wasFavorite = lastFavorites.any { it.title == toggledTitle }
                 val isFavorite = favorites.any { it.title == toggledTitle }
                 if (wasFavorite != isFavorite) {
-                    val message = if (isFavorite) getString(R.string.addedToFavoritesText) else getString(R.string.removedFromFavoritesText)
+                    val message =
+                        if (isFavorite) getString(R.string.addedToFavoritesText) else getString(R.string.removedFromFavoritesText)
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 }
             }

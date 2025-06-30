@@ -8,12 +8,16 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.sharks.ouioui.data.model.Destination
 
+/**
+ * Data Access Object (DAO) for accessing favorite destinations in the local Room database.
+ * Provides methods to insert, delete, and retrieve favorite destinations.
+ */
 @Dao
 interface FavoriteDestinationDao {
     @Query("SELECT * FROM favorite_destinations")
     fun getAllFavorites(): LiveData<List<Destination>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) // Replace existing entry if it conflicts
     suspend fun insertFavorite(destination: Destination)
 
     @Delete

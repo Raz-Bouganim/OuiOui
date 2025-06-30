@@ -9,6 +9,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for managing favorite destinations.
+ */
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(private val repository: FavoriteRepository) : ViewModel() {
 

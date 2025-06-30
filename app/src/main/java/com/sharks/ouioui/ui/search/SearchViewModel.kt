@@ -10,6 +10,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for searching travel destinations.
+ */
 @HiltViewModel
 class SearchViewModel @Inject constructor(private val repository: DestinationRepo): ViewModel() {
 
@@ -24,6 +27,9 @@ class SearchViewModel @Inject constructor(private val repository: DestinationRep
     val lastQueryValue: String?
         get() = lastQuery
 
+    /**
+     * Fetches destinations for the given query if it differs from the last query.
+     */
     fun fetchDestinations(query: String) {
         if (query != lastQuery) {
             lastQuery = query
@@ -38,6 +44,9 @@ class SearchViewModel @Inject constructor(private val repository: DestinationRep
         }
     }
 
+    /**
+     * Toggles the favorite status of a destination in the current search results.
+     */
     fun toggleFavorite(destination: Destination) {
         val updatedList = _destinations.value?.map {
             if (it.title == destination.title) it.copy(isFavorite = !it.isFavorite) else it

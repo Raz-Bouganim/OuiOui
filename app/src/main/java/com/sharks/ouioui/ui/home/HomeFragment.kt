@@ -23,7 +23,13 @@ import com.sharks.ouioui.utils.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 import com.google.android.gms.location.LocationServices
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 
+/**
+ * Fragment displaying featured and discoverable destinations.
+ * Handles location permissions, auto-scrolling, and favorite toggling.
+ */
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
@@ -53,7 +59,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1001
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            fetchCountryAndDestinations()
+        } else {
+            homeViewModel.fetchDestinationsForCountry("France")
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -63,14 +77,34 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchButtonCard.setOnClickListener{
+        setupNavigation()
+        setupAdapters()
+        observeViewModels()
+
+        if (homeViewModel.locationDestinations.value.isNullOrEmpty()) {
+            requestLocationAndFetchFeatured()
+        }
+        if (homeViewModel.worldDestinations.value.isNullOrEmpty()) {
+            //homeViewModel.fetchWorldDestinations()
+        }
+    }
+
+    /**
+     * Sets up navigation for the search button.
+     */
+    private fun setupNavigation() {
+        binding.searchButtonCard.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
+    }
 
-        // Display featured destinations in France
+    /**
+     * Initializes adapters and RecyclerViews for featured and discover destinations.
+     */
+    private fun setupAdapters() {
         featuredAdapter = DestinationAdapter(
             emptyList(),
-            onFavoriteClick = { destination, position ->
+            onFavoriteClick = { destination, _ ->
                 lastToggledDestination = destination.title
                 favoriteViewModel.toggleFavorite(destination)
             },
@@ -81,10 +115,9 @@ class HomeFragment : Fragment() {
         binding.recyclerViewFeaturedDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerViewFeaturedDestination.adapter = featuredAdapter
 
-        // Display discover destinations
         discoverAdapter = DestinationAdapter(
             emptyList(),
-            onFavoriteClick = { destination, position ->
+            onFavoriteClick = { destination, _ ->
                 lastToggledDestination = destination.title
                 favoriteViewModel.toggleFavorite(destination)
             },
@@ -94,7 +127,12 @@ class HomeFragment : Fragment() {
         )
         binding.recyclerViewDiscoverDestinations.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewDiscoverDestinations.adapter = discoverAdapter
+    }
 
+    /**
+     * Observes LiveData from ViewModels to update UI components.
+     */
+    private fun observeViewModels() {
         homeViewModel.loadingWorld.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBarDiscover.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.recyclerViewDiscoverDestinations.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
@@ -106,8 +144,7 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.locationDestinations.observe(viewLifecycleOwner) { destinations ->
-            val shuffled = destinations
-            featuredAdapter.updateData(shuffled)
+            featuredAdapter.updateData(destinations)
             featuredPosition = 0
             autoScrollHandler.removeCallbacks(autoScrollRunnable)
             autoScrollHandler.postDelayed(autoScrollRunnable, 7000)
@@ -135,36 +172,26 @@ class HomeFragment : Fragment() {
             }
             lastFavorites = favorites
         }
-
-        if (homeViewModel.locationDestinations.value.isNullOrEmpty()) {
-            requestLocationAndFetchFeatured()
-        }
-        if (homeViewModel.worldDestinations.value.isNullOrEmpty()) {
-            //homeViewModel.fetchWorldDestinations()
-        }
     }
 
-    @Suppress("DEPRECATION")
+    /**
+     * Requests location permission and fetches featured destinations based on the user's location.
+     */
     private fun requestLocationAndFetchFeatured() {
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-        } else {
-            fetchCountryAndDestinations()
+        when {
+            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED -> {
+                fetchCountryAndDestinations()
+            }
+            else -> {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
         }
     }
 
-    @Deprecated("DEPRECATION")
-    @Suppress("DEPRECATION")
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            fetchCountryAndDestinations()
-        } else {
-            homeViewModel.fetchDestinationsForCountry("France")
-        }
-    }
-
-    @Suppress("DEPRECATION")
+    /**
+     * Fetches the user's country based on their location and featured destinations.
+     * If the location cannot be determined, defaults to France.
+     */
     private fun fetchCountryAndDestinations() {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return
@@ -176,15 +203,15 @@ class HomeFragment : Fragment() {
                 if (country != null) {
                     homeViewModel.fetchDestinationsForCountry(country)
                 } else {
-                    Toast.makeText(requireContext(), getString(R.string.unableToDetermineCountryText), Toast.LENGTH_SHORT).show()
+                    Log.e("HomeFragment", getString(R.string.unableToDetermineCountryText))
                     homeViewModel.fetchDestinationsForCountry("France")
                 }
             } else {
-                Toast.makeText(requireContext(), getString(R.string.locationIsNullText), Toast.LENGTH_SHORT).show()
+                Log.e("HomeFragment", getString(R.string.locationIsNullText))
                 homeViewModel.fetchDestinationsForCountry("France")
             }
         }.addOnFailureListener {
-            Toast.makeText(requireContext(), getString(R.string.failedToGetLocationText), Toast.LENGTH_SHORT).show()
+            Log.e("HomeFragment", getString(R.string.failedToGetLocationText), it)
             homeViewModel.fetchDestinationsForCountry("France")
         }
     }
