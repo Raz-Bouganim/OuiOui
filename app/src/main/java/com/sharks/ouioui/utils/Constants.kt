@@ -6,6 +6,6 @@ package com.sharks.ouioui.utils
 class Constants {
     companion object {
         const val BASE_URL = "https://serpapi.com/"
-        const val API_KEY = "f668df7e0a453551207d9fd69af858ccead4876019ec6ac45903c1e7c8e22066"
+        const val API_KEY = "9b4aaf0f52afc7eb02efc0416f811072d2a1d43fefc381895b97a68f79ef3c36"
     }
 }

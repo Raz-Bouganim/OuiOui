@@ -32,4 +32,9 @@
         tools:layout="@layout/fragment_settings">
     </fragment>
 
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.sharks.ouioui.ui.events.EventsFragment"
+        tools:layout="@layout/fragment_events" />
+
 </navigation>

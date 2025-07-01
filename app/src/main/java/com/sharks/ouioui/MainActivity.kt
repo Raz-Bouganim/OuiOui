@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         binding.navSearch.setOnClickListener { navController.navigate(R.id.searchFragment) }
         binding.navSaved.setOnClickListener { navController.navigate(R.id.savedFragment) }
         binding.navSettings.setOnClickListener { navController.navigate(R.id.settingsFragment) }
+        binding.navEvents.setOnClickListener { navController.navigate(R.id.eventsFragment) }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.searchFragment -> highlightSelected(binding.navSearch)
                 R.id.savedFragment -> highlightSelected(binding.navSaved)
                 R.id.settingsFragment -> highlightSelected(binding.navSettings)
+                R.id.eventsFragment -> highlightSelected(binding.navEvents)
             }
         }
     }
@@ -64,7 +66,7 @@ class MainActivity : AppCompatActivity() {
      * Highlights the selected navigation item and its icon/text.
      */
     private fun highlightSelected(selectedView: View) {
-        val navItems = listOf(binding.navHome, binding.navSearch, binding.navSaved, binding.navSettings)
+        val navItems = listOf(binding.navHome, binding.navSearch, binding.navSaved, binding.navSettings, binding.navEvents)
         navItems.forEach { item ->
             val isSelected = item == selectedView
 
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                 binding.navSearch -> binding.navSearchIcon
                 binding.navSaved -> binding.navSavedIcon
                 binding.navSettings -> binding.navSettingsIcon
+                binding.navEvents -> binding.navEventsIcon
                 else -> null
             }
             val text = when (item) {
@@ -80,6 +83,7 @@ class MainActivity : AppCompatActivity() {
                 binding.navSearch -> binding.navSearchText
                 binding.navSaved -> binding.navSavedText
                 binding.navSettings -> binding.navSettingsText
+                binding.navEvents -> binding.navEventsText
                 else -> null
             }
 

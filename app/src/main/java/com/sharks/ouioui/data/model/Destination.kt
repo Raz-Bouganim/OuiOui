@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 /**
  * Api response wrapper for popular destinations.
  */
-data class ApiResponse(
+data class DestinationResponse(
     val popular_destinations: PopularDestinations?
 )
 

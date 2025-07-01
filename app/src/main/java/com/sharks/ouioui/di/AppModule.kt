@@ -4,6 +4,7 @@ import android.content.Context
 import com.sharks.ouioui.data.remote.ApiService
 import com.sharks.ouioui.data.remote.RetrofitInstance
 import com.sharks.ouioui.repository.DestinationRepo
+import com.sharks.ouioui.repository.EventsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,4 +28,11 @@ class AppModule {
         apiService: ApiService,
         @ApplicationContext context: Context
     ): DestinationRepo = DestinationRepo(apiService, context)
+
+    @Provides
+    @Singleton
+    fun provideEventsRepository(
+        apiService: ApiService,
+        @ApplicationContext context: Context
+    ): EventsRepository = EventsRepository(apiService, context)
 }

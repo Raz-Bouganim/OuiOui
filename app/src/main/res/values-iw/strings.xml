@@ -37,4 +37,12 @@
     <string name="aboutOuiOuiText">על האפליקציה</string>
     <string name="okText">אוקיי</string>
     <string name="selectLanguageText">בחר שפה</string>
+    <string name="navEventsText">אירועים</string>
+    <string name="eventTitleText">כותרת אירוע</string>
+    <string name="startDateText">תאריך התחלה</string>
+    <string name="whenText">מתי</string>
+    <string name="addressText">כתובת</string>
+    <string name="eventsHeaderText">אירועים</string>
+    <string name="upcomingEventsInYourDestinationText">אירועים קרובים ביעדך</string>
+    <string name="eventsSearchHintText">הקלד עיר לחיפוש אירועים...</string>
 </resources>

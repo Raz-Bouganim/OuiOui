@@ -98,6 +98,26 @@
                 android:textColor="@color/nav_text_color"/>
         </LinearLayout>
 
+        <!-- Events -->
+        <LinearLayout
+            android:id="@+id/nav_events"
+            style="@style/CustomNavItem"
+            android:tag="savedFragment">
+            <ImageView
+                android:id="@+id/nav_events_icon"
+                android:src="@drawable/ic_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/nav_icon_color"/>
+
+            <TextView
+                android:id="@+id/nav_events_text"
+                android:text="@string/navEventsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nav_text_color"/>
+        </LinearLayout>
+
         <!-- Settings -->
         <LinearLayout
             android:id="@+id/nav_settings"

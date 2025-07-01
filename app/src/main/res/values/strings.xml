@@ -40,4 +40,12 @@
     <string name="ouiouiVersionText" translatable="false">OuiOui v1.0&#10;© 2025 Your Company</string>
     <string name="okText">OK</string>
     <string name="selectLanguageText">Select Language</string>
+    <string name="navEventsText">Events</string>
+    <string name="eventTitleText">Event Title</string>
+    <string name="startDateText">Start Date</string>
+    <string name="whenText">When</string>
+    <string name="addressText">Address</string>
+    <string name="eventsHeaderText">Events</string>
+    <string name="upcomingEventsInYourDestinationText">Upcoming Events In Your Destination\n</string>
+    <string name="eventsSearchHintText">Type a city to search events at...</string>
 </resources>
