@@ -43,7 +43,7 @@ com.ouioui.app
 │   ├── search        // Search screen with filters
 │   ├── details       // Detailed view for a destination
 │   ├── saved         // User's saved/favorite destinations
-│   ├── category      // Category-wise browsing (beach, mountain, etc.)
+│   ├── Events      // Search for upcoming events in a selected destination
 │   └── settings      // Settings screen (dark mode toggle, etc.)
 │
 ├── di
