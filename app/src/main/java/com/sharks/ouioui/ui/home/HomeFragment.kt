@@ -25,6 +25,10 @@ import java.util.Locale
 import com.google.android.gms.location.LocationServices
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Fragment displaying featured and discoverable destinations.
@@ -179,11 +183,11 @@ class HomeFragment : Fragment() {
      */
     private fun requestLocationAndFetchFeatured() {
         when {
-            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> {
+            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED -> {
                 fetchCountryAndDestinations()
             }
             else -> {
-                requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
         }
     }
@@ -194,21 +198,26 @@ class HomeFragment : Fragment() {
      */
     private fun fetchCountryAndDestinations() {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) return
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return
 
         fusedLocationClient.getCurrentLocation(
             com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_ACCURACY,
             null
         ).addOnSuccessListener { location ->
             if (location != null) {
-                val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                val country = addresses?.firstOrNull()?.countryName
-                if (country != null) {
-                    homeViewModel.fetchDestinationsForCountry(country)
-                } else {
-                    Log.e("HomeFragment", getString(R.string.unableToDetermineCountryText))
-                    homeViewModel.fetchDestinationsForCountry("France")
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                    val addresses = withContext(Dispatchers.IO) {
+                        geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                    }
+
+                    val country = addresses?.firstOrNull()?.countryName
+                    if (country != null) {
+                        homeViewModel.fetchDestinationsForCountry(country)
+                    } else {
+                        Log.e("HomeFragment", getString(R.string.unableToDetermineCountryText))
+                        homeViewModel.fetchDestinationsForCountry("France")
+                    }
                 }
             } else {
                 Log.e("HomeFragment", getString(R.string.locationIsNullText))
