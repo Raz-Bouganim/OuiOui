@@ -1,4 +1,4 @@
-package com.sharks.ouioui.data.repository
+package com.sharks.ouioui.repository
 
 import androidx.lifecycle.LiveData
 import com.sharks.ouioui.data.local.FavoriteDestinationDao

@@ -17,7 +17,7 @@ interface FavoriteDestinationDao {
     @Query("SELECT * FROM favorite_destinations")
     fun getAllFavorites(): LiveData<List<Destination>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE) // Replace existing entry if it conflicts
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavorite(destination: Destination)
 
     @Delete

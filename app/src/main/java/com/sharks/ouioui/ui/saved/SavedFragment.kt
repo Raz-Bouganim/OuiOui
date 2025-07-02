@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sharks.ouioui.data.model.Destination
 import com.sharks.ouioui.databinding.FragmentSavedBinding
@@ -21,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class SavedFragment : Fragment() {
-
     private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
 
